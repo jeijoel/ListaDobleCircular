@@ -13,7 +13,7 @@
             //Console.WriteLine(miLista.Contiene(0));
             //miLista.AnadirFinal(3);
             //Console.WriteLine(miLista);
-            Lista lista = new ListaSimpleCircular();
+            Lista lista = new ListaDobleCircular();
             lista.AnadirInicio(1);
             lista.AnadirFinal(2);
             lista.AnadirInicio(3);
