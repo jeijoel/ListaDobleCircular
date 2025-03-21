@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ListaDobleCircular
 {
-    internal class ListaSimpleCircular : Lista
+    internal class ListaDobleCircular : Lista
     {
         private Nodo? cola;
         private int tamano;
 
-        public ListaSimpleCircular()
+        public ListaDobleCircular()
         {
             this.cola = null;
             this.tamano = 0;
@@ -58,11 +58,15 @@ namespace ListaDobleCircular
             if (this.cola == null)
             {
                 nuevoNodo.siguiente = nuevoNodo;
+                nuevoNodo.anterior = nuevoNodo;
                 this.cola = nuevoNodo;
             }
             else
             {
-                nuevoNodo.siguiente = this.cola.siguiente;
+                Nodo cabeza = this.cola.siguiente;
+                nuevoNodo.siguiente = cabeza;
+                nuevoNodo.anterior = this.cola;
+                cabeza.anterior = nuevoNodo;
                 this.cola.siguiente = nuevoNodo;
             }
             this.tamano++;
@@ -76,11 +80,15 @@ namespace ListaDobleCircular
             if (this.cola == null)
             {
                 nuevoNodo.siguiente = nuevoNodo;
+                nuevoNodo.anterior = nuevoNodo;
                 this.cola = nuevoNodo;
             }
             else
             {
-                nuevoNodo.siguiente = this.cola.siguiente;
+                Nodo cabeza = this.cola.anterior;
+                nuevoNodo.siguiente = cabeza;
+                nuevoNodo.anterior = this.cola;
+                cabeza.anterior = nuevoNodo;
                 this.cola.siguiente = nuevoNodo;
                 this.cola = nuevoNodo;
             }
@@ -88,7 +96,6 @@ namespace ListaDobleCircular
             return true;
         }
 
-        // En este caso, Anadir se comporta como AnadirFinal
         public bool Anadir(int elemento)
         {
             return AnadirFinal(elemento);
@@ -101,7 +108,6 @@ namespace ListaDobleCircular
                 throw new KeyNotFoundException("La lista está vacía.");
             }
             Nodo actual = this.cola.siguiente;
-            Nodo anterior = this.cola;
             do
             {
                 if (actual.valor == elemento)
@@ -113,17 +119,17 @@ namespace ListaDobleCircular
                     }
                     else
                     {
-                        anterior.siguiente = actual.siguiente;
+                        actual.anterior.siguiente = actual.siguiente;
+                        actual.siguiente.anterior = actual.anterior;
                         // Si se elimina el nodo cola, actualizar cola
                         if (actual == this.cola)
                         {
-                            this.cola = anterior;
+                            this.cola = actual.anterior;
                         }
                     }
                     this.tamano--;
                     return elemento;
                 }
-                anterior = actual;
                 actual = actual.siguiente;
             } while (actual != this.cola.siguiente);
             throw new KeyNotFoundException("Elemento no encontrado.");
