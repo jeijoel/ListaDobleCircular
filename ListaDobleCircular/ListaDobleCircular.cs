@@ -9,6 +9,7 @@ namespace ListaDobleCircular
     internal class ListaDobleCircular : Lista
     {
         private Nodo? cola;
+        private Nodo? cabeza;
         private int tamano;
 
         public ListaDobleCircular()
@@ -85,12 +86,12 @@ namespace ListaDobleCircular
             }
             else
             {
-                Nodo cabeza = this.cola.siguiente;
+                Nodo cabeza = this.cabeza.anterior;
                 nuevoNodo.siguiente = cabeza;
-                nuevoNodo.anterior = this.cola;
-                cabeza.anterior = nuevoNodo;
-                this.cola.siguiente = nuevoNodo;
-                this.cola = nuevoNodo;
+                nuevoNodo.anterior = this.cabeza;
+                cabeza.siguiente = nuevoNodo;
+                this.cabeza.siguiente = nuevoNodo;
+                this.cabeza = nuevoNodo;
             }
             this.tamano++;
             return true;
