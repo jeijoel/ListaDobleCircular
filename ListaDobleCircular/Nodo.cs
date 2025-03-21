@@ -9,9 +9,9 @@ namespace ListaDobleCircular
     internal class Nodo
     {
         internal int valor { get; set; }
-        internal Nodo siguiente { get; set; }
+        internal Nodo? siguiente { get; set; }
+        internal Nodo? anterior { get; set; }
 
-        internal Nodo anterior { get; set; }
         public Nodo(int valor)
         {
             this.valor = valor;
